@@ -4,7 +4,7 @@ Detect and Report High-Priority Permissions in Entra ID Apps.
 ## Setup
 Install AzureAD module:  
 ```
-C:\PS> Install-Module AzureAD
+Install-Module AzureAD
 ```
 
 ## Usage
