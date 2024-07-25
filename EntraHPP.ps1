@@ -1,4 +1,4 @@
-﻿Write-Host -ForegroundColor blue "
+Write-Host -ForegroundColor blue "
   
         ______        __                  __  __ ____   ____ 
        / ____/____   / /_ _____ ____ _   / / / // __ \ / __ \
@@ -142,7 +142,7 @@ Function Get-HPP{
 
     #Init CSV File if needed
     if($FileName){
-        echo "Risk;Id;Display Name;Owner;Permission;Description" | Out-File -FilePath .\$FileName
+        echo "Risk;Id;Display Name;Owner;Permission;Role;Description" | Out-File -FilePath .\$FileName
     }
 
     ForEach($app in $entra_apps){
@@ -198,7 +198,7 @@ Function Get-HPP{
                     Risk = $RiskLevel
                 } 
                 if($FileName){
-                    echo "$($RiskLevel);$($EntraAppPrincipalId);$($EntraAppName);$($owner);$($AppliedRole.DisplayName);$($AppliedRole.Description)" | Out-File -FilePath .\$FileName -Append
+                    echo "$($RiskLevel);$($EntraAppPrincipalId);$($EntraAppName);$($owner);$($AppliedRole.DisplayName);$($AppliedRole.Value);$($AppliedRole.Description)" | Out-File -FilePath .\$FileName -Append
                 }
             }
         }
@@ -245,12 +245,12 @@ Function Get-Pwn{
 
     .EXAMPLE
         
-        C:\PS> Get-HPP -Users david@company.com
+        C:\PS> Get-Pwn -Users david@company.com
         Description
         -----------
         This command will list all applications owned by user david@company.com and considered to be potentially dangerous.
 
-        C:\PS> Get-HPP -Users david@company.com,pascal@company.com -Risk Critical -FileName results.csv
+        C:\PS> Get-Pwn -Users david@company.com,pascal@company.com -Risk Critical -FileName results.csv
         Description
         -----------
         This command will list all applications owned by david@company.com or pascal@company.com and considered with critical risk then will export results to results csv file.
@@ -279,7 +279,7 @@ Function Get-Pwn{
     
     #Init CSV File if needed
     if($FileName){
-        echo "Risk;Id;Display Name;Owner;Permission;Description" | Out-File -FilePath .\$FileName
+        echo "Risk;Id;Display Name;Owner;Permission;Role;Description" | Out-File -FilePath .\$FileName
     }
 
     ForEach($app in $entra_apps){
@@ -342,7 +342,7 @@ Function Get-Pwn{
                         Risk = $RiskLevel
                     } 
                     if($FileName){
-                        echo "$($RiskLevel);$($EntraAppPrincipalId);$($EntraAppName);$($owner);$($AppliedRole.DisplayName);$($AppliedRole.Description)" | Out-File -FilePath .\$FileName -Append
+                        echo "$($RiskLevel);$($EntraAppPrincipalId);$($EntraAppName);$($owner);$($AppliedRole.DisplayName);$($AppliedRole.Value);$($AppliedRole.Description)" | Out-File -FilePath .\$FileName -Append
                     }
                 }
             }
