@@ -21,6 +21,9 @@ $MediumValues = @(".All",".ReadWrite.", "Mail",".Read.","Calendars")
 
 
 function ConnectToAzureAD{
+    [Parameter(Position = 0,Mandatory=$False)]
+    [String]$AzureEnv
+    
     [boolean]$connectedToAzureAD = $false
     
     echo "Connecting to Microsoft services:"   
@@ -35,15 +38,28 @@ function ConnectToAzureAD{
         exit
     }
 
-    try {
-        Write-Host -NoNewline "`t`t`tConnecting to Entra with Connect-AzureAD"
-        Connect-AzureAD > $null
-        $connectedToAzureAD = $true
-        Write-Host "`tDONE"
-    }catch{
-        Write-Host "Could not connect to Entra."
-        throw $_
-        exit
+    if($AzureEnv -eq "China"){
+        try {
+            Write-Host -NoNewline "`t`t`tConnecting to Entra with Connect-AzureAD"
+            Connect-AzureAD -AzureEnvironmentName AzureChinaCloud > $null
+            $connectedToAzureAD = $true
+            Write-Host "`tDONE"
+        }catch{
+            Write-Host "Could not connect to Entra."
+            throw $_
+            exit
+        }
+    } else {
+        try {
+            Write-Host -NoNewline "`t`t`tConnecting to Entra with Connect-AzureAD"
+            Connect-AzureAD > $null
+            $connectedToAzureAD = $true
+            Write-Host "`tDONE"
+        }catch{
+            Write-Host "Could not connect to Entra."
+            throw $_
+            exit
+        }
     }
 }
 
@@ -122,12 +138,18 @@ Function Get-HPP{
     [ValidateSet("Critical", "High", "Medium", "To Check", "All")]
     [String[]]$Risk="All",
     [Parameter(Position = 1,Mandatory=$False)]
-    [String]$FileName    
+    [String]$FileName,
+    [Parameter(Position = 2,Mandatory=$False)]
+    [String]$AzureEnv  
     )
 
 
     #Connect to Azure
-    ConnectToAzureAD
+    if($AzureEnv -eq "China"){
+        ConnectToAzureAD -AzureEnv $AzureEnv
+    } else {
+        ConnectToAzureAD
+    }
 
     #Get email of current user
     $CurrentUser = Get-AzureADCurrentSessionInfo
