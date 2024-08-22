@@ -15,8 +15,8 @@ To list EntraHPP functions run List-EntraHPPFunctions
 "
 
 #Define level of risks
-$CriticalValues = @("AppRoleAssignment.ReadWrite.All","Directory.ReadWrite.All", "UserAuthenticationMethod.ReadWrite.All", "Policy.ReadWrite.PermissionGrant", "RoleManagement.ReadWrite.Directory", "RoleAssignmentSchedule.ReadWrite.Directory", "PrivilegedAccess.ReadWrite.AzureADGroup", "PrivilegedAssignmentSchedule.ReadWrite.AzureADGroup", "RoleEligibilitySchedule.ReadWrite.Directory", "PrivilegedEligibilitySchedule.ReadWrite.AzureADGroup", "RoleManagementPolicy.ReadWrite.Directory", "RoleManagementPolicy.ReadWrite.AzureADGroup", "Group.ReadWrite.All", "Tenant.")
-$HighValues = @("User.Read.All", "User.ReadWrite.All", "Files.ReadWrite.All", "Calendars.ReadWrite", "Mail.Send", "User.Export.All", "Directory.Read.All", "Exchange.ManageAsApp", "Sites.ReadWrite.All", "full_access_as_app", ".ReadWrite.All")
+$CriticalValues = @("AppRoleAssignment.ReadWrite.All","Directory.ReadWrite.All", "UserAuthenticationMethod.ReadWrite.All", "Policy.ReadWrite.PermissionGrant", "RoleManagement.ReadWrite.Directory", "RoleAssignmentSchedule.ReadWrite.Directory", "PrivilegedAccess.ReadWrite.AzureADGroup", "PrivilegedAssignmentSchedule.ReadWrite.AzureADGroup", "RoleEligibilitySchedule.ReadWrite.Directory", "PrivilegedEligibilitySchedule.ReadWrite.AzureADGroup", "RoleManagementPolicy.ReadWrite.Directory", "RoleManagementPolicy.ReadWrite.AzureADGroup", "Group.ReadWrite.All")
+$HighValues = @("User.Read.All", "User.ReadWrite.All", "Files.ReadWrite.All", "Calendars.ReadWrite", "Mail.Send", "User.Export.All", "Directory.Read.All", "Exchange.ManageAsApp", "Sites.ReadWrite.All", "full_access_as_app", ".ReadWrite.All", "Tenant.")
 $MediumValues = @(".All",".ReadWrite.", "Mail",".Read.","Calendars")
 
 
