@@ -286,7 +286,7 @@ function Get-HPP {
 }
 
 
-Function Get-Pwn {
+function Get-Pwn {
     <#
     .SYNOPSIS
       Get-Pwn is used to obtain applications owned by supplied users in Entra with "Application" authorization. A risk level is assigned to each authorization.
