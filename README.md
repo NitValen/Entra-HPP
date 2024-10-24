@@ -14,9 +14,6 @@ Entra-HPP is a PowerShell tool developed to detect and report High-Priority Perm
   - Retrieves all applications owned by specified users using their email addresses.
   - Particularly useful for identifying potential compromise paths in the tenant by exploiting abusive application permissions, especially during a security audit.
 
-## Prerequisites
-
-- AzureAD module: `Install-Module AzureAD`
 
 ## Installation
 
