@@ -69,10 +69,12 @@ function ConnectToAzureAD {
         Write-Host "`t`t`tDONE"
     } else {
         Write-Host "`t`tFAILED"
-        Write-Host "`tInstalling the AzureAD Module..."
-        Install-Module AzureAD -Force -ErrorAction Stop
-        Write-Host "`tAzureAD Module installed successfully"
+        Write-Host "`t`t`tInstalling the AzureAD Module..."
+        Install-Module AzureAD -Force -ErrorAction Stop -Scope CurrentUser
+        Write-Host "`t`t`tAzureAD Module installed successfully"
     }
+
+    Set-Item -Path Env:\SuppressAzurePowerShellBreakingChangeWarnings -Value $true
 
     # Connect to AzureAD based on environment
     if ($AzureEnv -eq "China") {
@@ -96,9 +98,6 @@ function ConnectToAzureAD {
             throw $_
         }
     }
-    
-    # Return connection status
-    return $isConnectedToAzureAD
 }
 
 
@@ -113,7 +112,7 @@ function Get-EntraApp {
         Write-Host "`tDONE"
     } catch {
         Write-Host "`tFAILED`n`tError recovering Entra applications."
-        throw $_
+        #throw $_
     }
     
     return $entra_apps
@@ -149,7 +148,7 @@ function Get-EntraAppOwners {
             return "NA"
         }
     } catch {
-        Write-Host "Error occurred: $_"
+        #Write-Host "Error occurred: $_"
         return "NA"
     }
 }
@@ -200,11 +199,11 @@ function Get-HPP {
     $CurrentUser = (Get-AzureADCurrentSessionInfo).Account.Id
 
     # Get all Application Permissions granted to an application
-    echo "Checking Applications in Entra:"
+    echo "`nChecking Applications in Entra:"
     $entra_apps = Get-EntraApp
 
     # Consolidation of results
-    Write-Host -NoNewline "`t`t`tPreparing results "
+    Write-Host -NoNewline "`t`t`tPreparing results...`n"
 
     # Init CSV File if needed
     if ($FileName) {
@@ -324,14 +323,18 @@ function Get-Pwn {
     )
 
     # Connect to Azure
-    ConnectToAzureAD
+    if ($AzureEnv -eq "China") {
+        ConnectToAzureAD -AzureEnv $AzureEnv
+    } else {
+        ConnectToAzureAD
+    }
 
     # Get all Application Permissions granted to an application
-    echo "Checking Applications in Entra:"
+    echo "`nChecking Applications in Entra:"
     $entra_apps = Get-EntraApp
 
     # Consolidation of results
-    Write-Host -NoNewline "`t`t`tPreparing results "
+    Write-Host -NoNewline "`t`t`tPreparing results...`n"
 
     # Init CSV File if needed
     if ($FileName) {
