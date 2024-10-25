@@ -15,7 +15,6 @@ Write-Host -ForegroundColor Blue @"
 #Define level of risks
 $CriticalValues = @(
     "AppRoleAssignment.ReadWrite.All",
-    "Directory.ReadWrite.All",
     "UserAuthenticationMethod.ReadWrite.All",
     "Policy.ReadWrite.PermissionGrant",
     "RoleManagement.ReadWrite.Directory",
@@ -31,6 +30,7 @@ $CriticalValues = @(
 
 
 $HighValues = @(
+    "Directory.ReadWrite.All",
     "User.Read.All",
     "User.ReadWrite.All",
     "Files.ReadWrite.All",
